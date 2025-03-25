@@ -11,6 +11,9 @@ import threading
 from tensorflow.keras.models import load_model
 from ultralytics import YOLO
 from groq import Groq
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Set page config
 st.set_page_config(
@@ -93,7 +96,7 @@ with tab1:
     class MediaProcessor:
         def __init__(self, api_key=None):
             """Initialize with Groq API key."""
-            self.api_key = api_key or os.environ.get("GROQ_API_KEY", "put_yo_api_key_here")
+            self.api_key = api_key or os.environ.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
             self.client = Groq(api_key=self.api_key)
         
         def extract_audio_from_video(self, video_path, output_audio_path=None):
